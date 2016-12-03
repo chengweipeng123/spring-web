@@ -7,4 +7,42 @@
             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         version="3.0"
         metadata-complete="false">
+
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--指定配置文件，如果不指定，默认为[servlet-name]-servlet.xml-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+
+            <!-- classes 目录中的文件可以用前缀 classpath: 来访问
+                1. classpath还是classpath*都可以加载整个classpath下（包括jar包里面）的资源文件。
+                2. .classpath*:的出现是为了从多个jar文件中加载相同的文件.classpath:只能加载找到的第一个文件.
+            -->
+
+            <!--<param-value>**.xml</param-value> 这里可以使用多种写法
+                1、不写,使用默认值:/WEB-INF/<servlet-name>-servlet.xml
+                2、<param-value>/WEB-INF/classes/spring-mvc.xml</param-value>
+                3、<param-value>classpath*:spring-mvc.xml</param-value>
+                4、多个值用逗号分隔
+            -->
+            <param-value>classpath:spring-mvc.xml</param-value>
+        </init-param>
+        <!--启动顺序，让这个Servlet随Servletp容器一起启动。-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>
+        <!--拦截方式：
+            1、拦截*.do、*.htm， 例如：/user/add.do
+            这是最传统的方式，最简单也最实用。不会导致静态文件（jpg,js,css）被拦截。
+            2、拦截/，例如：/user/add
+            可以实现现在很流行的REST风格。很多互联网类型的应用很喜欢这种风格的URL。
+            弊端：会导致静态文件（jpg,js,css）被拦截后不能正常显示。
+            3、拦截/*，这是一个错误的方式，请求可以走到Action中，但转到jsp时再次被拦截，不能访问到jsp。
+        -->
+        <url-pattern>/</url-pattern> <!-- 会拦截/下所有请求-->
+    </servlet-mapping>
 </web-app>

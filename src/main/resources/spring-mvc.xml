@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 自动扫描的包名:⾃动的生成一个对象存储到 Spring Container ⾥
+            @Controller 声明Action组件
+            @Service    声明Service组件    @Service("myMovieLister")
+            @Repository 声明Dao组件
+            @Component   泛指组件, 当不好归类时.
+            @RequestMapping("/menu")  请求映射
+            @Resource  用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name="beanName")
+            @Autowired 用于注入，(srping提供的) 默认按类型装配
+            @Transactional( rollbackFor={Exception.class}) 事务管理
+            @ResponseBody
+            @Scope("prototype")   设定bean的作用域
+    -->
+    <context:component-scan base-package="controller"></context:component-scan>
+
+    <!-- 默认的注解映射支持:
+    <mvc:annotation-driven /> 会自动注册DefaultAnnotationHandlerMapping
+    与AnnotationMethodHandlerAdapter 两个bean,是spring MVC为@Controllers分发请求所必须的。
+    并提供了：
+        数据绑定支持
+        @NumberFormatannotation支持
+        @DateTimeFormat支持
+        @Valid支持，读写XML的支持（JAXB）
+        读写JSON的支持（Jackson）
+    -->
+    <mvc:annotation-driven/>
+
+    <!-- 视图解析器中没有⽤ suffix 是为了可以根据 suffix ⾃动选择视图解析器，为了同时支持多种视图解析器 -->
+    <!-- JSP 视图解析器，JSP 文件放在目录 WEB-INF/view/jsp 下 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/view/jsp/"/>
+        <property name="order" value="1"/>
+    </bean>
+
+    <!-- 对静态资源的访问，如 js, css, jpg, png -->
+    <!--<mvc:default-servlet-handler/> 我们不使用默认的 servlet-handler 处理资源访问 -->
+    <!-- 如 HTML 里访问 /js/jquery.js, 则实际访问的是 /WEB-INF/resources/js/jquery.js -->
+    <!--使用<mvc:resources/>元素,把mapping的URI注册到SimpleUrlHandlerMapping的urlMap中,
+        key为mapping的URI pattern值,而value为ResourceHttpRequestHandler-->
+    <mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/" cache-period="31556926"/>
+    <mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/" cache-period="31556926"/>
+    <mvc:resources mapping="/images/**" location="/WEB-INF/resources/images/" cache-period="31556926"/>
+
+</beans>
