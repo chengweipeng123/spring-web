@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.seas</groupId>
+  <artifactId>SpringWeb</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>SpringWeb Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <tomcat.version>2.2</tomcat.version>
+    <servlet.version>3.1.0</servlet.version>
+    <jstl.version>1.2</jstl.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet.version}</version>
+      <scope>provided</scope> <!--注意 scope 用的是 provided-->
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>SpringWeb</finalName>
+    <plugins>
+      <plugin>
+        <!--可选：配置编译器信息-->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source> <!-- 源代码使用的开发版本 -->
+          <target>1.8</target> <!-- 需要生成的目标class文件的编译版本 -->
+          <encoding>UTF8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!--嵌入式的 Tomcat Web Server-->
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>${tomcat.version}</version>
+        <configuration>
+          <port>8080</port>
+          <path>/</path> <!--Content Path用 /，而不是项目名-->
+          <uriEncoding>UTF-8</uriEncoding> <!--处理 GET 请求的编码-->
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
