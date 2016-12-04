@@ -14,3 +14,5 @@
 0:0:0:0:0:0:0:1 - - [04/Dec/2016:09:38:54 +0800] "GET /helloworld-freemarker HTTP/1.1" 200 44 http-bio-8080-exec-1 396
 0:0:0:0:0:0:0:1 - - [04/Dec/2016:09:43:11 +0800] "GET /helloworld-freemarker HTTP/1.1" 200 206 http-bio-8080-exec-1 335
 0:0:0:0:0:0:0:1 - - [04/Dec/2016:09:43:32 +0800] "GET /helloworld-freemarker HTTP/1.1" 200 229 http-bio-8080-exec-3 6
+0:0:0:0:0:0:0:1 - - [04/Dec/2016:19:09:21 +0800] "GET /ajax HTTP/1.1" 200 35 http-bio-8080-exec-1 126
+0:0:0:0:0:0:0:1 - - [04/Dec/2016:19:32:45 +0800] "GET /json HTTP/1.1" 200 37 http-bio-8080-exec-1 219
