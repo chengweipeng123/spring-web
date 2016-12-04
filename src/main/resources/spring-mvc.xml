@@ -46,6 +46,32 @@
         <property name="order" value="1"/>
     </bean>
 
+    <!--Freemarker视图解析器-->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="prefix" value=""/>
+        <property name="order" value="0"/>
+        <property name="cache" value="true"/>
+        <property name="contentType" value="text/html; charset=UTF-8"/>
+        <property name="requestContextAttribute" value="request"/>
+    </bean>
+    <!-- Freemarker configuration -->
+    <!-- Freemarker 文件放在目录 WEB-INF/view/ftl 下 -->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/view/ftl/"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+        <!-- 定义变量, 在模版里直接可以使用 -->
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="baseUrl" value="/fox"/>
+            </map>
+        </property>
+    </bean>
+
+
     <!-- 对静态资源的访问，如 js, css, jpg, png -->
     <!--<mvc:default-servlet-handler/> 我们不使用默认的 servlet-handler 处理资源访问 -->
     <!-- 如 HTML 里访问 /js/jquery.js, 则实际访问的是 /WEB-INF/resources/js/jquery.js -->
