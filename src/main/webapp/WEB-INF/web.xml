@@ -45,4 +45,16 @@
         -->
         <url-pattern>/</url-pattern> <!-- 会拦截/下所有请求-->
     </servlet-mapping>
+
+    <!-- 浏览器的 form 不支持 put, delete 等 method,
+    由该 filter 将 /blog?_method=delete 转换为标准的 http delete 方法
+    -->
+    <filter>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <servlet-name>springMVC</servlet-name>
+    </filter-mapping>
 </web-app>

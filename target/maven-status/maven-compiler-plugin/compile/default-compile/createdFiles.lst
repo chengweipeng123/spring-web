@@ -1,2 +1,3 @@
-controller/HelloWorldController.class
+controller/RestController.class
 domain/Address.class
+controller/HelloWorldController.class

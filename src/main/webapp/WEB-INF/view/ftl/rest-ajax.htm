@@ -1,0 +1,68 @@
+<!-- UUID: 93DEA045-2C24-408F-8F6F-F3CA166800DC -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        button {
+            width: 80px;
+        }
+    </style>
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var targetUrl = "http://localhost:8080/rest";
+
+            // 点击 Get 按钮
+            $("#get-btn").click(function() {
+                $.ajax({
+                    url: targetUrl,
+                    type: "GET",
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
+            });
+
+            // 点击 Post 按钮
+            $("#post-btn").click(function() {
+                $.ajax({
+                    url: targetUrl,
+                    type: "POST",
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
+            });
+
+            // 点击 Get 按钮
+            $("#put-btn").click(function() {
+                $.ajax({
+                    url: targetUrl,
+                    type: "PUT",
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
+            });
+
+            // 点击 Get 按钮
+            $("#delete-btn").click(function() {
+                $.ajax({
+                    url: targetUrl,
+                    type: "DELETE",
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<button id="get-btn">Get</button>
+<button id="post-btn">Post</button>
+<button id="put-btn">Put</button>
+<button id="delete-btn">Delete</button>
+</body>
+</html>
