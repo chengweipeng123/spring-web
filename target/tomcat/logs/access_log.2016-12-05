@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [05/Dec/2016:07:03:21 +0800] "GET /user-form HTTP/1.1" 200 347 http-bio-8080-exec-1 335
+0:0:0:0:0:0:0:1 - - [05/Dec/2016:07:03:26 +0800] "POST /update-user HTTP/1.1" 302 - http-bio-8080-exec-3 56
+0:0:0:0:0:0:0:1 - - [05/Dec/2016:07:03:26 +0800] "GET /result HTTP/1.1" 200 59 http-bio-8080-exec-4 13
+0:0:0:0:0:0:0:1 - - [05/Dec/2016:07:23:24 +0800] "GET /write-session2 HTTP/1.1" 200 347 http-bio-8080-exec-1 191
+0:0:0:0:0:0:0:1 - - [05/Dec/2016:07:23:29 +0800] "GET /write-session HTTP/1.1" 404 949 http-bio-8080-exec-3 42
+0:0:0:0:0:0:0:1 - - [05/Dec/2016:07:23:54 +0800] "GET /read-session HTTP/1.1" 200 229 http-bio-8080-exec-4 33

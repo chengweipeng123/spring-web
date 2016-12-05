@@ -36,7 +36,7 @@
         @Valid支持，读写XML的支持（JAXB）
         读写JSON的支持（Jackson）
     -->
-    <mvc:annotation-driven/>
+    <!--<mvc:annotation-driven/>-->
 
     <!-- 视图解析器中没有⽤ suffix 是为了可以根据 suffix ⾃动选择视图解析器，为了同时支持多种视图解析器 -->
     <!-- JSP 视图解析器，JSP 文件放在目录 WEB-INF/view/jsp 下 -->

@@ -1,3 +1,5 @@
 controller/RestController.class
+domain/User.class
 domain/Address.class
+controller/ParameterController.class
 controller/HelloWorldController.class
