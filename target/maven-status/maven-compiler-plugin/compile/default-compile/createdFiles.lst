@@ -1,4 +1,5 @@
 controller/RestController.class
+controller/ValidateController.class
 domain/User.class
 domain/Address.class
 controller/ParameterController.class

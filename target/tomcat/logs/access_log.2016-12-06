@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [06/Dec/2016:11:44:29 +0800] "GET /validate-user?username=biao&password=1234 HTTP/1.1" 200 28 http-bio-8080-exec-1 286
+0:0:0:0:0:0:0:1 - - [06/Dec/2016:11:44:35 +0800] "GET /validate-user?username=biao HTTP/1.1" 200 345 http-bio-8080-exec-3 27
