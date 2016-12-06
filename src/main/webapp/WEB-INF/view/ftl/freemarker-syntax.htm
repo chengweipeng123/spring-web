@@ -1,0 +1,44 @@
+<!-- UUID: 0D85193C-E51F-4A06-9C65-DB1E5AC999ED -->
+<html>
+<head>
+    <title>Welcome!</title>
+</head>
+<body>
+<#-- 注释部分 -->
+
+    <#-- 下面使用插值 -->
+        <h1>Welcome ${username}!</h1>
+
+        如果直接访问为 null 则报错，防止 null 报错可以在 ! 后跟默认值: ${foo!"Default"}<br>
+        函数调用用问号后跟函数名: ${username?upper_case}<br>
+        ${username?html}
+
+        <p>访问 list，指令中的参数不加 $ {}: <br>
+            We have these animals:</p>
+        <u1>
+            <!-- 使用FTL指令 -->
+            <#list animals as animal>
+                <li>${animal.name} for ${animal.price} Euros</li>
+            </#list>
+        </u1>
+
+        定义循环输出的宏: list 是宏的名字，title, items 是宏的参数<br>
+        <#macro list title items>
+            <p>${title?cap_first}:
+            <ul>
+                <#list items as item>
+                    <li>${item}
+                </#list>
+            </ul>
+        </#macro>
+
+        调用宏用：
+        <@list items=animals title="animals"/>
+
+        <#noparse>
+            <#list animals as animal>
+                <li>${animal.name} for ${animal.price} Euros</li>
+            </#list>
+        </#noparse>
+</body>
+</html>
