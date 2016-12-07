@@ -1,6 +1,11 @@
+/Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/controller/MyBatisController.java
+/Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/domain/Animal.java
+/Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/mapper/UserMapper.java
 /Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/controller/ValidateController.java
+/Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/controller/FreemarkerController.java
 /Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/controller/ParameterController.java
 /Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/domain/User.java
 /Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/domain/Address.java
 /Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/controller/HelloWorldController.java
 /Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/controller/RestController.java
+/Users/chengseas/IdeaProjects/spring/SpringWeb/src/main/java/controller/LoggerViewController.java

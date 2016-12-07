@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 非常重要：必须是 Mapper 类的全路径-->
+<mapper namespace="mapper.UserMapper">
+    <!-- [1] 简单的 JavaBean，直接使用 resultType: 数据库表的列与 JavaBean 的属性对应 -->
+    <select id="findUserById" parameterType="int" resultType="domain.User">
+        SELECT id, username, password FROM user WHERE id = #{id}
+    </select>
+
+    <select id="findUsers" resultType="domain.User">
+        SELECT id, username, password FROM user LIMIT ${offset}, ${count}
+    </select>
+</mapper>

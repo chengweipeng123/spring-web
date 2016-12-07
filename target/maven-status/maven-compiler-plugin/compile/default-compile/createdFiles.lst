@@ -1,8 +1,11 @@
 controller/RestController.class
 controller/ValidateController.class
 domain/User.class
+mapper/UserMapper.class
 domain/Address.class
 controller/FreemarkerController.class
+controller/LoggerViewController.class
 controller/ParameterController.class
 domain/Animal.class
+controller/MyBatisController.class
 controller/HelloWorldController.class

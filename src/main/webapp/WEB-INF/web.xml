@@ -2,7 +2,6 @@
 <web-app
         xmlns="http://java.sun.com/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         version="3.0"
@@ -75,4 +74,18 @@
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
+    <!--在 web.xml 中用 ContextLoaderListener 加载 spring-mybatis.xml。-->
+    <!--ContextLoaderListener 对应的容器是其他 Spring 容器的父容器，-->
+    <!--所以在里面创建的 MyBatis 的 mapper 在 springmvc 这个容器即以后要使用的 Shiro filter 中都能访问。-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring-mybatis.xml
+        </param-value>
+    </context-param>
 </web-app>

@@ -11,6 +11,9 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!--resources 目录里的文件会被自动的复制到 classes 目录，即 classpath 环境下-->
+
+
     <!-- 自动扫描的包名:⾃动的生成一个对象存储到 Spring Container ⾥
             @Controller 声明Action组件
             @Service    声明Service组件    @Service("myMovieLister")
