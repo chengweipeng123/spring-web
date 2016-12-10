@@ -7,6 +7,10 @@ controller/FreemarkerController.class
 controller/LoggerViewController.class
 controller/ParameterController.class
 domain/Animal.class
+filter/ShiroRealm.class
+util/CommonUtil.class
 controller/MyBatisController.class
+controller/ShiroController.class
 domain/UserInfo.class
+filter/UserFormAuthenticationFilter.class
 controller/HelloWorldController.class

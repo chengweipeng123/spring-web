@@ -1,0 +1,14 @@
+<html>
+<head>
+    <title>登录</title>
+    <style>.error{color:red;}</style>
+</head>
+<body>
+<div class="error">${error!}</div>
+<form action="" method="post"> <!--也可以是 action="/login"-->
+    名字：<input type="text" name="username"><br/>
+    密码：<input type="text" name="password"><br/>
+    <button type="submit">登录</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        button {
+            width: 130px;
+        }
+
+        div {
+            margin: 30px 50px;
+        }
+    </style>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            // 访问 admin 页面
+            $("#admin").click(function() {
+                $.get("/admin", function(data) {
+                    alert(data);
+                });
+            });
+
+            // admin 登录
+            $("#admin-login").click(function() {
+                $.post("/login",
+                    {username: "admin", password: "password"},
+                    function(data) {
+                        alert(data);
+                    });
+            });
+
+            // 访问 register 页面
+            $("#register").click(function() {
+                $.get("/register", function(data) {
+                    alert(data);
+                });
+            });
+
+            // register 登录
+            $("#register-login").click(function() {
+                $.post("/login",
+                    {username: "register", password: "password"},
+                    function(data) {
+                        alert(data);
+                    });
+            });
+
+            // 登录失败
+            $("#fail-login").click(function() {
+                $.post("/login",
+                    {username: "abc", password: "xxxxx"},
+                    function(data) {
+                        alert(data);
+                    });
+            });
+
+            // 注销
+            $("#logout").click(function() {
+                $.get("/logout");
+            });
+        });
+    </script>
+</head>
+<body>
+<div>
+    <button id="admin">Admin</button>
+    <button id="admin-login">Admin Login</button>
+</div>
+
+<div>
+    <button id="register">Register</button>
+    <button id="register-login">Register Login</button>
+</div>
+
+<div>
+    <button id="fail-login">Fail Login</button>
+</div>
+
+<div>
+    <button id="logout">Logout</button>
+</div>
+</body>
+</html>
