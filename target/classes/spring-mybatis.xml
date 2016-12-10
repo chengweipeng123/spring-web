@@ -13,11 +13,42 @@
         <!--<property name="username" value="root" />-->
         <!--<property name="password" value="root" />-->
     <!--</bean>-->
+    <!--
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/springweb?useUnicode=true&amp;characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
+    </bean>
+    -->
+
+    <!-- 1. Data Source using DBCP. -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/springweb?useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+
+        <!-- 连接池启动时的初始值 -->
+        <property name="initialSize" value="10" />
+        <!-- 连接池的最大值 -->
+        <property name="maxActive" value="100" />
+        <!-- 最大空闲值.当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分，一直减少到maxIdle为止 -->
+        <property name="maxIdle" value="50" />
+        <!-- 最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请 -->
+        <property name="minIdle" value="5" />
+        <!--#给出一条简单的sql语句进行验证-->
+        <property name="validationQuery" value="select NOW()" />
+        <!--#在取出连接时进行有效验证-->
+        <property name="testOnBorrow" value="false" />
+        <property name="testWhileIdle" value="true" />
+        <property name="logAbandoned" value="true" />
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="120" />
+        <!-- #运行判断连接超时任务的时间间隔，单位为毫秒，默认为-1，即不执行任务。 -->
+        <property name="timeBetweenEvictionRunsMillis" value="3600000" />
+        <!-- #连接的超时时间，默认为半小时。 -->
+        <property name="minEvictableIdleTimeMillis" value="3600000" />
     </bean>
 
     <!-- 2. SQL session factory -->

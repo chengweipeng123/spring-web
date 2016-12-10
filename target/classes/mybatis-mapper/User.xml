@@ -6,12 +6,87 @@
 
 <!--namespace 非常重要：必须是 Mapper 类的全路径-->
 <mapper namespace="mapper.UserMapper">
-    <!-- [1] 简单的 JavaBean，直接使用 resultType: 数据库表的列与 JavaBean 的属性对应 -->
+    <sql id="columns">id, age, name </sql>
+
+    <!-- [[1]] 简单的 JavaBean，直接使用 resultType: 数据库表的列与 JavaBean 的属性对应 -->
     <select id="findUserById" parameterType="int" resultType="domain.User">
         SELECT id, username, password FROM user WHERE id = #{id}
     </select>
+    <select id="selectUsersByName" parameterType="string" resultType="domain.User">
+        SELECT <include refid="columns"/>
+        FROM user WHERE name = #{name}
+    </select>
 
+    <!-- [[2]] 可以使用resultMap映射自己的类: 例如多表查询时 -->
+    <select id="selectUserById" parameterType="int" resultMap="userResultMap">
+        SELECT <include refid="columns"/>
+        FROM user WHERE id = #{id}
+    </select>
+    <resultMap id="userResultMap" type="domain.User">
+        <id property="id" column="id"/>
+        <result property="age" column="age"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <!--
+        #{name} 会根据传进来的参数的类型自动加上相应的信息，例如字符串两边会加上 ''，
+        日期对象会自动的转化成 SQL 识别的内容，可以防止 SQL 注入攻击。
+        ${name} 直接替换，例如传进来的是字符串，不会在字符串两边加上 ''，
+        比较适合 int 等类型，例如分页时的 offset and count。
+    -->
     <select id="findUsers" resultType="domain.User">
         SELECT id, username, password FROM user LIMIT ${offset}, ${count}
     </select>
+
+    <!-- [[3]] 使用resultMap映射，属性是另一个类的对象: association -->
+    <select id="selectFullUserById" parameterType="int" resultMap="userAssociationResultMap" >
+        SELECT
+        user.id         as id, <!-- 重命名列非常有用 -->
+        user.age        as age,
+        user.name       as name,
+        ui.id           as user_info_id,
+        ui.user_id      as user_info_user_id,
+        ui.telephone    as user_info_telephone,
+        ui.address      as user_info_address
+        <!--FROM user, user_info ui-->
+        FROM user
+        INNER JOIN user_info ui ON user.id=ui.user_id
+        WHERE user.id=#{id}
+        <!--AND user.id=ui.user_id-->
+    </select>
+    <resultMap id="userAssociationResultMap" type="domain.User" >
+        <id property="id" column="id"/>
+        <result property="age" column="age"/>
+        <result property="name" column="name"/>
+        <!--嵌套映射中还可以使用resultMap: association, collection
+        还可以使用嵌套查询，但是会产生N＋1问题，在大数量的数据库里会有很大的性能问题-->
+        <!--<association property="userInfo" column="user_info_id" javaType="domain.UserInfo">
+            <id     property="id"        column="user_info_id"/>
+            <result property="userId"    column="user_info_user_id"/>
+            <result property="telephone" column="user_info_telephone"/>
+            <result property="address"   column="user_info_address"/>
+        </association>-->
+        <!--association是一对一关系，collection是一对多关系-->
+        <!--使用columnPrefix可以使result map重用-->
+        <association property="userInfo" column="user_info_id" columnPrefix="user_info_" resultMap="userInfoResultMap"/>
+    </resultMap>
+    <resultMap id="userInfoResultMap" type="domain.UserInfo" >
+        <id     property="id"        column="id"/>
+        <result property="userId"    column="user_id"/>
+        <result property="telephone" column="telephone"/>
+        <result property="address"   column="address"/>
+    </resultMap>
+
+    <select id="selectUsersWithName" parameterType="list" resultType="domain.User" >
+        SELECT  <include refid="columns"/>
+        FROM    user
+        WHERE   name in
+        <foreach item="item" index="index" open="(" separator="," close=")" collection="list" >
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updatePassword" parameterType="domain.User">
+        UPDATE user SET password=#{password} WHERE id=#{id}
+    </update>
 </mapper>

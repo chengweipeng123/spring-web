@@ -15,4 +15,6 @@ public interface UserMapper {
 
     // 使用 @Param 的方式传参数
     public List<User> findUsers(@Param("offset") int offset, @Param("count") int count);
+
+    public void updatePassword(User user);
 }

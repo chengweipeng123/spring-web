@@ -8,4 +8,5 @@ controller/LoggerViewController.class
 controller/ParameterController.class
 domain/Animal.class
 controller/MyBatisController.class
+domain/UserInfo.class
 controller/HelloWorldController.class

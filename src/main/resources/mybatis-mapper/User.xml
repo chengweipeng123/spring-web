@@ -54,7 +54,7 @@
         WHERE user.id=#{id}
         <!--AND user.id=ui.user_id-->
     </select>
-    <resultMap id="userAssociationResultMap" type="com.tur.domain.User" >
+    <resultMap id="userAssociationResultMap" type="domain.User" >
         <id property="id" column="id"/>
         <result property="age" column="age"/>
         <result property="name" column="name"/>
@@ -70,19 +70,23 @@
         <!--使用columnPrefix可以使result map重用-->
         <association property="userInfo" column="user_info_id" columnPrefix="user_info_" resultMap="userInfoResultMap"/>
     </resultMap>
-    <resultMap id="userInfoResultMap" type="com.tur.domain.UserInfo" >
+    <resultMap id="userInfoResultMap" type="domain.UserInfo" >
         <id     property="id"        column="id"/>
         <result property="userId"    column="user_id"/>
         <result property="telephone" column="telephone"/>
         <result property="address"   column="address"/>
     </resultMap>
 
-    <select id="selectUsersWithName" parameterType="list" resultType="com.tur.domain.User" >
+    <select id="selectUsersWithName" parameterType="list" resultType="domain.User" >
         SELECT  <include refid="columns"/>
         FROM    user
         WHERE   name in
-        <foreach item="item" index="index" open="("separator=","close=")" collection="list" >
+        <foreach item="item" index="index" open="(" separator="," close=")" collection="list" >
             #{item}
         </foreach>
     </select>
+
+    <update id="updatePassword" parameterType="domain.User">
+        UPDATE user SET password=#{password} WHERE id=#{id}
+    </update>
 </mapper>

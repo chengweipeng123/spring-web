@@ -26,7 +26,10 @@
                 3、<param-value>classpath*:spring-mvc.xml</param-value>
                 4、多个值用逗号分隔
             -->
-            <param-value>classpath:spring-mvc.xml</param-value>
+            <param-value>
+                classpath:spring-mvc.xml
+                classpath:spring-transaction.xml
+            </param-value>
         </init-param>
         <!--启动顺序，让这个Servlet随Servletp容器一起启动。-->
         <load-on-startup>1</load-on-startup>
@@ -88,4 +91,6 @@
             classpath:spring-mybatis.xml
         </param-value>
     </context-param>
+
+
 </web-app>
