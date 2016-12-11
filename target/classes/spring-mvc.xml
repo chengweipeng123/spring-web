@@ -101,4 +101,16 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <!--每个 <mvc:interceptor> 可以包含多个 <mvc:mapping path="expression"/>，expression 可以使用正则表达式。-->
+    <!--访问 http://localhost/logback, http://localhost/read-header, http://localhost/form/* -->
+    <!--则会被拦截器 interceptor.MyInterceptor 拦截，在控制台输出 my interceptor，访问其它的 URL 不会被这个拦截器拦截。-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/logback"/>
+            <mvc:mapping path="/read-header"/>
+            <mvc:mapping path="/form/*"/>
+            <bean class="interceptor.MyInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

@@ -11,7 +11,8 @@
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="userRealm"/>
         <!-- 需要使用cache的话加上这句 -->
-        <!--<property name="cacheManager" ref="shiroEhcacheManager" />-->
+        <property name="cacheManager" ref="shiroEhcacheManager" />
+        <property name="sessionManager" ref="sessionManager" />
     </bean>
 
     <!-- 需要使用cache的话加上这句 -->
@@ -26,6 +27,18 @@
     <bean id="formAuthenticationFilter" class="filter.UserFormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
+    </bean>
+
+    <!--保持 Session 到 Redis-->
+    <bean id="redisManager" class="shiro.RedisManager"/>
+
+    <bean id="redisSessionDAO" class="shiro.RedisSessionDAO">
+        <property name="redisManager" ref="redisManager"/>
+        <property name="timeToLiveSeconds" value="180"/>
+    </bean>
+
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="redisSessionDAO" />
     </bean>
 
     <!-- Shiro的Web过滤器 -->
