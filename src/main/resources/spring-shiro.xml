@@ -10,6 +10,13 @@
     <!--安全管理器-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="userRealm"/>
+        <!-- 需要使用cache的话加上这句 -->
+        <!--<property name="cacheManager" ref="shiroEhcacheManager" />-->
+    </bean>
+
+    <!-- 需要使用cache的话加上这句 -->
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:spring-shiro-ehcache.xml"/>
     </bean>
 
     <!-- Shiro生命周期处理器-->
