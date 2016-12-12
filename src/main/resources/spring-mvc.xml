@@ -73,6 +73,8 @@
         </property>
     </bean>
 
+    <!--自定义的异常处理器-->
+    <bean class="exception.XTuerHandlerExceptionResolver"></bean>
 
     <!-- 对静态资源的访问，如 js, css, jpg, png -->
     <!--<mvc:default-servlet-handler/> 我们不使用默认的 servlet-handler 处理资源访问 -->
