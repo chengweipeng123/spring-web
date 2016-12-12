@@ -2,6 +2,7 @@ package controller;
 
 import domain.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by chengseas on 2016/12/4.
@@ -114,9 +116,49 @@ public class ParameterController {
      * ============== **/
 
     // 显示表单
-    @RequestMapping("/user-form") // http://localhost:8080/user-form
-    public String showUserForm(){
+    @RequestMapping(value = "/user-form", method = RequestMethod.GET) // http://localhost:8080/user-form
+    public String showUserForm(ModelMap model, HttpSession session){
+        String token = UUID.randomUUID().toString().toUpperCase().replaceAll("-","");
+        model.addAttribute("token", token);
+        session.setAttribute(token,token);
         return "user-form.htm";
+    }
+
+    /**
+     * 可以使用 token 防止后退的情况下重复提交表单，访问表单页面的时候生成一个 token 在 form 里并且在 Server 端存储这个 token，
+     * 提交表单的时候先检查 Server 端有没有这个 token，如果有则说明是第一次提交表单，
+     * 然后把 token 从 Server 端删除，处理表单，redirect 到 result 页面，
+     * 如果 Server 端没有这个 token，则说明是重复提交的表单，不处理表单的提交。
+     *
+     * 注：发现这种方式并不能解决重复提交的问题，因为chrome浏览器中发现网页的后退依然执行了上面的get方法，导致重新生成了新的token
+     * @param username
+     * @param password
+     * @param token
+     * @param session
+     * @param redirectAttributes
+     * @return
+     */
+    @RequestMapping(value = "/user-form", method = RequestMethod.POST)
+    public String handleUserForm(@RequestParam String username,
+                                 @RequestParam String password,
+                                 @RequestParam String token,
+                                 HttpSession session,
+                                 RedirectAttributes redirectAttributes){
+        // 处理表单前， 查看 token 是否有效
+        if (token == null || token.isEmpty() || !token.equals(session.getAttribute(token))){
+            throw new RuntimeException("重复提交表单");
+        }
+
+        // 正常提交表单
+        session.removeAttribute(token);
+
+        // Update user in database...
+        System.out.println("Username:" + username + ",Password:" + password);
+
+        // 操作结果显示给用户
+        redirectAttributes.addFlashAttribute("result", "The user is already successfully updated");
+
+        return "redirect:result";
     }
 
     // 更新 User，把结果保存到 RedirectAttributes

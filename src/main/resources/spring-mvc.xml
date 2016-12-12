@@ -112,5 +112,17 @@
             <mvc:mapping path="/form/*"/>
             <bean class="interceptor.MyInterceptor"></bean>
         </mvc:interceptor>
+
+
+        <!--通过 SpringMVC 拦截器增加 token 的机制，-->
+        <!--想改变 token 生成策略？ 修改 TokenValidator-->
+        <!--想改变 token 的存储策略？ 修改 TokenValidator-->
+        <!--想给 form 增加 token 校验？ 修改 spring-mvc.xml 拦截器的配置-->
+        <!--想把 form 的 token 校验删除？ 修改 spring-mvc.xml 拦截器的配置-->
+        <!--不需要修改任何 form 处理的方法，泰山崩于前而色不变，风波骤起而泰然处之，项目经理好像也没那么可恨了-->
+        <mvc:interceptor>
+            <mvc:mapping path="/user-form"/> <!--需要增加 token 校验的 form 的 URI-->
+            <bean class="interceptor.TokenValidator"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>
