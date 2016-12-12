@@ -11,6 +11,16 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+
+    <!--引入外部properties文件-->
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+    <!--<property name="location">-->
+    <!--<value>classpath:database.properties</value>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <context:property-placeholder location="classpath:database.properties" ignore-unresolvable="true"/>
+    <!--推荐使用下面这种方式: 一个项目(可有多模块)或一个系统的配置应该放在一起，不宜分散-->
+    <!--<context:property-placeholder location="classpath*:conf/conf*.properties"/>-->
     <!--resources 目录里的文件会被自动的复制到 classes 目录，即 classpath 环境下-->
 
 
@@ -129,4 +139,5 @@
             <bean class="interceptor.TokenValidator"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
+
 </beans>
